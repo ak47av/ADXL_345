@@ -9,7 +9,7 @@
 #define CPU_TEMP "/sys/class/thermal/thermal_zone0/temp"
 
 #define ADDRESS     "mqtt://192.168.1.100:1883"
-#define CLIENTID    "rpi1"
+#define CLIENTID    "rpi_publisher"
 #define AUTHMETHOD  "avijays"
 #define AUTHTOKEN   "avijays"
 #define TOPIC       "ee513/CPUTemp"
@@ -49,7 +49,7 @@ int main()
     opts.password = AUTHTOKEN;
 
     MQTTClient_willOptions willOptions = MQTTClient_willOptions_initializer;
-    willOptions.message = "Device Offline"; // Message to be sent when the client disconnects
+    willOptions.message = "Publisher Offline"; // Message to be sent when the client disconnects
     willOptions.qos = 1; // Quality of Service for the will message
     willOptions.retained = 0; // Whether the will message should be retained
     willOptions.topicName = "topic/will"; // Will message topic
@@ -98,17 +98,4 @@ int main()
     MQTTClient_disconnect(client, 10000);
     MQTTClient_destroy(&client);
     return rc;
-
-    // acc_xyz values;
-
-    // acc.writeRegister(REG_DATA_FORMAT, 0x8);
-    // acc.calibrateSensor();
-
-    // while(1)
-    // {
-    //     values = acc.readXYZ();
-    //     printAccValues(&values);
-    //     sleep(1);
-    // }
-    // return 0;
 }
